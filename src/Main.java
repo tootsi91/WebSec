@@ -1,32 +1,39 @@
 import java.lang.*;
-import java.lang.Math;
+import java.math.BigInteger;
 
 class DiffieHellman {
 
     public static void main (String args[]) {
 
-        double p = 23;
-        double g = 5;
-        double x = 6;
-        double y = 15;
-
-        double a = Math.pow(g, x) % 23;
-        double b = Math.pow(g, y) % 23;
+        BigInteger p = BigInteger.valueOf(23);
+        BigInteger g = BigInteger.valueOf(5);
+        BigInteger x = BigInteger.valueOf(979997000);
+        BigInteger y = BigInteger.valueOf(76575000);
+        
+        BigInteger a = g.modPow(x, BigInteger.valueOf(23));
+        BigInteger b = g.modPow(y, BigInteger.valueOf(23));
 
         System.out.println("a is:" + a);
         System.out.println("b is:" + b);
 
-        double bx = Math.pow(b, x) % 23;
-        double ay = Math.pow(a, y) % 23;
+
+        BigInteger bx = b.modPow(x, BigInteger.valueOf(23));
+        BigInteger ay = a.modPow(y, BigInteger.valueOf(23));
 
         System.out.println("bx is:" + bx);
         System.out.println("ay is:" + ay);
 
 
-        double z = bx - ay;
+        BigInteger z = bx.subtract(ay);
         System.out.println("z is:" + bx);
 
-        if (Math.abs(z) <= 0.000001)
+        BigInteger zabs = z.abs();
+        BigInteger val = new BigInteger("0");
+
+        int res;
+        res = zabs.compareTo(val);
+
+        if (res == 0)
             System.out.print("equal");
         else
             System.out.println("not equal");
